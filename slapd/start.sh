@@ -1,9 +1,10 @@
 #!/bin/bash
 set -e
+set -o pipefail
 
-: LDAP_ROOTPASS=${LDAP_ROOTPASS}
-: LDAP_DOMAIN=${LDAP_DOMAIN}
-: LDAP_ORGANIZATION=${LDAP_ORGANIZATION}
+: LDAP_ROOTPASS="${LDAP_ROOTPASS}"
+: LDAP_DOMAIN="${LDAP_DOMAIN}"
+: LDAP_ORGANIZATION="${LDAP_ORGANIZATION}"
 
 if [ ! -e /var/lib/ldap/docker_bootstrapped ]; then
   echo "configuring slapd for first run"

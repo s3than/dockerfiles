@@ -1,12 +1,12 @@
 FROM alpine:latest
-MAINTAINER Jessie Frazelle <jess@linux.com>
+LABEL maintainer "Jessie Frazelle <jess@linux.com>"
 
 RUN apk add --no-cache \
 	ca-certificates \
 	gnupg \
 	&& rm -rf /var/lib/apt/lists/*
 
-ENV TARSNAP_VERSION 1.0.37
+ENV TARSNAP_VERSION 1.0.39
 
 RUN set -x \
 	&& apk add --no-cache --virtual .build-deps \
@@ -17,6 +17,7 @@ RUN set -x \
 		make \
 		openssl-dev \
 		perl-digest-sha1 \
+		perl-utils \
 		tar \
 		zlib-dev \
 	&& curl -sSL "https://www.tarsnap.com/download/tarsnap-autoconf-${TARSNAP_VERSION}.tgz" -o /tmp/tarsnap.tgz \

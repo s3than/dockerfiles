@@ -17,8 +17,8 @@
 #
 
 # Base docker image
-FROM debian:stretch
-MAINTAINER Jessie Frazelle <jess@linux.com>
+FROM debian:bullseye-slim
+LABEL maintainer "Jessie Frazelle <jess@linux.com>"
 
 ENV DEBIAN_FRONTEND noninteractive
 

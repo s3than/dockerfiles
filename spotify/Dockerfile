@@ -10,24 +10,23 @@
 #	--name spotify \
 #	jess/spotify
 #
-FROM debian:sid
-MAINTAINER Jessie Frazelle <jess@linux.com>
+FROM debian:sid-slim
+LABEL maintainer "Jessie Frazelle <jess@linux.com>"
 
 RUN	apt-get update && apt-get install -y \
+	ca-certificates \
+	curl \
 	dirmngr \
 	gnupg \
 	--no-install-recommends \
-	&& apt-key adv --keyserver keyserver.ubuntu.com --recv-keys BBEBDCB318AD50EC6865090613B00F1FD2C19886 \
+	&& curl -sS https://download.spotify.com/debian/pubkey_0D811D58.gpg | apt-key add -  \
 	&& echo "deb http://repository.spotify.com stable non-free" >> /etc/apt/sources.list.d/spotify.list \
-	&& echo "deb http://ftp.de.debian.org/debian jessie main " >> /etc/apt/sources.list.d/workaround.list \
 	&& apt-get update && apt-get install -y \
 	alsa-utils \
 	libgl1-mesa-dri \
 	libgl1-mesa-glx \
-	libpangoxft-1.0-0 \
-	libssl1.0.0 \
-	libssl1.0.2 \
-	libxss1 \
+	libpulse0 \
+	libsm6 \
 	spotify-client \
 	xdg-utils \
 	--no-install-recommends \

@@ -1,13 +1,20 @@
+# Run awscli in a container and list s3 buckets
+#
+# docker run --rm -it \
+#	--name awscli \
+#	jess/awscli \
+#       s3 ls
+#
+
 FROM alpine:latest
-MAINTAINER Jessie Frazelle <jess@linux.com>
+LABEL maintainer "Jessie Frazelle <jess@linux.com>"
 
 RUN apk --no-cache add \
 	ca-certificates \
 	groff \
 	less \
-	python \
-	py2-pip \
-	&& pip install awscli \
+	python3 \
+	&& pip3 install awscli \
 	&& mkdir -p /root/.aws \
 	&& { \
 		echo '[default]'; \

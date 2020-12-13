@@ -1,14 +1,19 @@
-FROM debian:stretch
-MAINTAINER Jessie Frazelle <jess@linux.com>
+FROM r.j3ss.co/wireguard:install
+LABEL maintainer "Jessie Frazelle <jess@linux.com>"
 
-RUN apt-get update && apt-get install -y \
+RUN apt update && apt -y install \
+	bash \
+	bc \
+	bison \
 	ca-certificates \
 	curl \
+	fakeroot \
+	flex \
 	git \
-	kernel-package \
-	make \
-	libncurses5-dev \
-	libssl-dev \
+	libgmp-dev \
+	libncurses-dev \
+	perl \
+	tar \
 	--no-install-recommends \
 	&& rm -rf /var/lib/apt/lists/*
 
@@ -17,6 +22,8 @@ WORKDIR $HOME
 
 ENV JOBS 4
 
-COPY install_kernel /usr/local/bin/install_kernel
+COPY build_kernel /usr/local/bin/build_kernel
 
-CMD [ "bash" ]
+RUN echo "build_kernel [version]" > /root/.bash_history
+
+ENTRYPOINT [ "bash" ]

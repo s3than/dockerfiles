@@ -1,5 +1,5 @@
 FROM alpine:latest
-MAINTAINER Jessie Frazelle <jess@linux.com>
+LABEL maintainer "Jessie Frazelle <jess@linux.com>"
 
 RUN apk add --no-cache \
 	ca-certificates \
@@ -7,7 +7,7 @@ RUN apk add --no-cache \
 	libxml2 \
 	libressl \
 	xclip \
-	--repository https://dl-3.alpinelinux.org/alpine/edge/main
+	--repository http://dl-cdn.alpinelinux.org/alpine/edge/main
 
 RUN set -x \
 	&& apk add --no-cache --virtual .build-deps \
@@ -17,6 +17,7 @@ RUN set -x \
 		cmake \
 		curl-dev \
 		git \
+		libressl-dev \
 		libxml2-dev \
 	&& git clone --depth 1 https://github.com/LastPass/lastpass-cli.git /usr/src/lastpass-cli \
 	&& ( \

@@ -8,8 +8,8 @@
 #	--name mutt \
 #	jess/mutt
 #
-FROM alpine:edge
-MAINTAINER Jessie Frazelle <jess@linux.com>
+FROM alpine:latest
+LABEL maintainer "Jessie Frazelle <jess@linux.com>"
 
 RUN addgroup -g 1000 user \
 	&& adduser -D -h /home/user -G user -u 1000 user
@@ -22,7 +22,8 @@ RUN apk --no-cache add \
 	lynx \
 	mutt \
 	mutt-doc \
-	vim
+	vim \
+	--repository http://dl-cdn.alpinelinux.org/alpine/edge/main
 
 # a browser is necessary!
 ENV BROWSER lynx

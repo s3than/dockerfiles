@@ -8,8 +8,8 @@
 #	--name gimp \
 #	jess/gimp
 #
-FROM debian:stretch
-MAINTAINER Jessie Frazelle <jess@linux.com>
+FROM debian:bullseye-slim
+LABEL maintainer "Jessie Frazelle <jess@linux.com>"
 
 RUN apt-get update && apt-get install -y \
 	gimp \

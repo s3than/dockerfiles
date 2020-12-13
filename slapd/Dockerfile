@@ -24,8 +24,8 @@
 # Be aware that by default the LDAP port is accessible from anywhere if the \
 # host firewall is unconfigured.
 #
-FROM debian:stretch
-MAINTAINER Jessie Frazelle <jess@linux.com>
+FROM debian:bullseye-slim
+LABEL maintainer "Jessie Frazelle <jess@linux.com>"
 
 RUN apt-get update && LC_ALL=C DEBIAN_FRONTEND=noninteractive \
 	apt-get install -y \

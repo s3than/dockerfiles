@@ -8,8 +8,8 @@
 #	--name mpd \
 #	jess/mpd
 #
-FROM debian:sid
-MAINTAINER Jessie Frazelle <jess@linux.com>
+FROM debian:sid-slim
+LABEL maintainer "Jessie Frazelle <jess@linux.com>"
 
 RUN apt-get update && apt-get install -y \
 	mpc \

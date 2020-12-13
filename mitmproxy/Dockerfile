@@ -1,38 +1,29 @@
-FROM debian:stretch
-MAINTAINER Jessie Frazelle <jess@linux.com>
+FROM debian:bullseye-slim
+LABEL maintainer "Jessie Frazelle <jess@linux.com>"
+
+ENV LANG=en_US.UTF-8
 
 RUN apt-get update && apt-get install -y \
-	libxslt1.1 \
-	libjpeg62-turbo \
-	python-minimal \
-	python-pip \
+	ca-certificates \
+	curl \
 	--no-install-recommends \
 	&& rm -rf /var/lib/apt/lists/*
 
-ENV LANG en_US.UTF-8
-EXPOSE 8080
+# Add our user first to make sure the ID get assigned consistently,
+# regardless of whatever dependencies get added.
+RUN groupadd -r mitmproxy && useradd -r -g mitmproxy mitmproxy \
+    && mkdir -p /home/mitmproxy/.mitmproxy \
+	&& chown -R mitmproxy:mitmproxy /home/mitmproxy
 
-RUN buildDeps=' \
-		gcc \
-		libjpeg-dev \
-		libffi-dev \
-		libssl-dev \
-		libxml2-dev \
-		libxslt1-dev \
-		python-dev \
-		python-setuptools \
-		zlib1g-dev \
-	' \
-	&& set -x \
-	&& apt-get update && apt-get install -y ${buildDeps} --no-install-recommends \
-	&& pip install setuptools mitmproxy \
-	&& apt-get purge -y --auto-remove ${buildDeps} \
-	&& rm -rf /var/lib/apt/lists/*
+# Download the binaries.
+ENV MITMPROXY_VERSION 5.1.1
+RUN curl -sSL "https://snapshots.mitmproxy.org/${MITMPROXY_VERSION}/mitmproxy-${MITMPROXY_VERSION}-linux.tar.gz" | tar -vxzC /usr/local/bin
 
-ENV HOME /home/mitm
-RUN useradd --create-home --home-dir $HOME mitm \
-	&& chown -R mitm:mitm $HOME
+VOLUME /home/mitmproxy/.mitmproxy
 
-USER mitm
+COPY docker-entrypoint.sh /usr/local/bin/
 
-ENTRYPOINT [ "mitmproxy" ]
+EXPOSE 8080 8081
+
+ENTRYPOINT ["docker-entrypoint.sh"]
+CMD ["mitmproxy"]

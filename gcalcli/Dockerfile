@@ -1,16 +1,15 @@
 FROM alpine:latest
-MAINTAINER Jessie Frazelle <jess@linux.com>
+LABEL maintainer "Jessie Frazelle <jess@linux.com>"
 
 ENV HOME /home/gcalcli
 
 RUN apk --no-cache add \
-	python \
-	python-dev \
-	py2-pip \
+	python3 \
+	python3-dev \
 	build-base \
 	&& adduser -S gcalcli \
 	&& chown -R gcalcli $HOME \
-	&& pip install vobject parsedatetime gcalcli
+	&& pip3 install vobject parsedatetime gcalcli
 
 WORKDIR $HOME
 USER gcalcli

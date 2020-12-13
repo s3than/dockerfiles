@@ -10,9 +10,9 @@
 #	jess/spotify-wine bash
 #
 FROM r.j3ss.co/wine
-MAINTAINER Jessie Frazelle <jess@linux.com>
+LABEL maintainer "Jessie Frazelle <jess@linux.com>"
 
-ADD https://d1clcicqv97n4s.cloudfront.net/ctrl/SpotifySetup.exe /usr/src/SpotifySetup.exe
+ADD https://download.scdn.co/SpotifySetup.exe /usr/src/SpotifySetup.exe
 
 RUN echo "wine /usr/src/SpotifySetup.exe" > /root/.bash_history
 

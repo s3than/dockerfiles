@@ -7,8 +7,8 @@
 # 	--device /dev/dri \
 # 	jess/nes /games/zelda.rom
 #
-FROM debian:sid
-MAINTAINER Jessie Frazelle <jess@linux.com>
+FROM debian:sid-slim
+LABEL maintainer "Jessie Frazelle <jess@linux.com>"
 
 RUN apt-get update && apt-get install -y \
 	binutils \
@@ -19,6 +19,7 @@ RUN apt-get update && apt-get install -y \
 	libgl1-mesa-dev \
 	libgl1-mesa-dri \
 	libxcursor-dev \
+	libxxf86vm-dev \
 	libxi-dev \
 	libxinerama-dev \
 	libxrandr-dev \

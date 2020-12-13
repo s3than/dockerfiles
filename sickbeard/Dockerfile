@@ -10,17 +10,18 @@
 # 	jess/sickbeard
 #
 FROM alpine:latest
-MAINTAINER Jessie Frazelle <jess@linux.com>
+LABEL maintainer "Jessie Frazelle <jess@linux.com>"
 
 
 RUN apk add --no-cache \
-	--repository https://dl-3.alpinelinux.org/alpine/edge/testing \
+	--repository http://dl-cdn.alpinelinux.org/alpine/edge/community \
 	ca-certificates \
 	git \
 	python \
-	py-cheetah \
+	py-pip \
 	py-setuptools
 
+RUN pip install cheetah
 
 ENV SICKBEARD_VERSION torrent_1080_subtitles
 
